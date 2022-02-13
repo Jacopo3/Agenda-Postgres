@@ -1,0 +1,50 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='base.css') }}">
+    <title>Nuova task</title>
+</head>
+<body>
+
+
+    <ul class="navbar">
+        <li class="blocco">
+            <a class="link active" href="{{url_for('index')}}">Home</a>
+        </li>
+        <li class="blocco">
+            <a class="link" href="{{url_for('nuova')}}">Nuovo</a>
+        </li>
+    </ul>
+
+
+    {% with messages = get_flashed_messages() %}  
+       {% if messages %}  
+          {% for message in messages %}  
+               <h1>{{ message }}</h1>  
+          {% endfor %}  
+       {% endif %}  
+    {% endwith %}  
+
+    <form id="Nuovo" action="" method="POST">
+        {{ course_simple_form.hidden_tag() }}<br>
+        <div class="row">
+            <div class="col-25">{{ course_simple_form.titolo.label }}</div> <div class="col-75">{{ course_simple_form.titolo() }}</div>
+        </div>
+        <div class="row">
+            <div class="col-25">{{ course_simple_form.descrizione.label }}</div> <div class="col-75">{{ course_simple_form.descrizione() }}</div>
+        </div>
+        <div class="row">
+            <div class="col-25">{{ course_simple_form.data_task.label }}</div> <div class="col-75">{{ course_simple_form.data_task() }}</div>
+        </div>
+        <div class="row">
+            <div class="col-25">{{ course_simple_form.Ripetizione_sett.label }}</div> <div class="col-75">{{ course_simple_form.Ripetizione_sett() }}</div>
+        </div>
+        <div class="row">
+            <div class="col-25">{{ course_simple_form.Ripetizione_ann.label }}</div> <div class="col-75">{{ course_simple_form.Ripetizione_ann() }}</div>
+        </div>
+        
+        {{ course_simple_form.submit() }}
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='base.css') }}">
+</head>
+<body>
+
+    <ul class="navbar">
+        <li class="blocco">
+            <a class="link active" href="{{url_for('index')}}">Home</a>
+        </li>
+        <li class="blocco">
+            <a class="link" href="{{url_for('nuova')}}">Nuovo</a>
+        </li>
+        <li class="blocco">
+            <a class="data">{{ data }}</a>
+        </li>
+        <li class="blocco">
+            <form action="" method="POST"> {{ form_data.hidden_tag() }} {{ form_data.data.label(class="data") }} {{ form_data.data(onchange="submit()") }}</form></span>
+        </li>
+    </ul>
+
+    {% for row in  dati%}
+        <h2>
+            {% if loop.previtem is defined %}
+                {% if row.annua_rp is not none and row.annua_rp != loop.previtem.annua_rp%}
+                    Ripetizione Annua
+                {% elif row.giorno_sett_rp is not none and row.giorno_sett_rp != loop.previtem.giorno_sett_rp %}
+                    Ripetizione Settimanale
+                {% elif  row.data is not none and row.data != loop.previtem.data %}
+                    {{ row.data }}
+                {% endif %}
+            {% else %}
+                {% if row.annua_rp is not none %}
+                    Ripetizione Annua
+                {% elif row.giorno_sett_rp is not none %}
+                    Ripetizione Settimanale
+                {% elif  row.data is not none %}
+                    {{ row.data }}
+                {% endif %}
+            {% endif %}
+
+        </h2>
+        <div class="task"> 
+            <div class="box-base">
+                {{ row.titolo }}
+            </div>
+            <div class="descrizione">
+                {{ row.descrizione }}
+            </div>
+            <div class="tasti">
+                <form method="get" action="/fatto/" id="Fatto">
+                    <input type="hidden" id="id" name="id" value="{{ row.id }}">
+                    <input type="hidden" id="data" name="data" value="{{ data }}">
+                        
+                    {% if row.fatto is defined and row.fatto == True %}
+                        <input type="checkbox" checked="checked" class="pulsante-fatto" id="check" name="check" onchange="submit()">
+                    {% else %}
+                        <input type="checkbox" class="pulsante-fatto" id="check" name="check" onchange="submit()">
+                    {% endif %}
+                </form>
+                <form method="get" action="/modifica/" id="Fatto">
+                    <input type="hidden" id="id" name="id" value="{{ row.id }}">
+                    <input type="submit" class="pulsante-elimina" value="modifica" id="modifica" name="modifica">
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+
+        
+
+    
+</body>
+</html>
