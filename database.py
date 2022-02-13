@@ -57,8 +57,8 @@ import psycopg2.extras
 import datetime
 
 def tasks():
-    connection = psycopg2.connect(user="postgres",
-                                password="brefagr",
+    connection = psycopg2.connect(user="",
+                                password="",
                                 host="127.0.0.1",
                                 port="5432",
                                 database="agenda")
